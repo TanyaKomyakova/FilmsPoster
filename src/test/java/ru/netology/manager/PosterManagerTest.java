@@ -31,21 +31,6 @@ public class PosterManagerTest {
     private FilmsPoster tenth = new FilmsPoster(10, "tenth", "comedy", 12);
 
 
-    @BeforeEach
-    public void setUp() { // Настроить
-        manager.add(first);
-        manager.add(second);
-        manager.add(third);
-        manager.add(fourth);
-        manager.add(fifth);
-        manager.add(sixth);
-        manager.add(seventh);
-        manager.add(eighth);
-        manager.add(ninth);
-        manager.add(tenth);
-
-    }
-
     @Test
     public void showInReverseOrder() {// Показать в обратном порядке
         FilmsPoster[] returned = new FilmsPoster[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
@@ -90,7 +75,7 @@ public class PosterManagerTest {
     }
 
     @Test
-    public void findById11() {// Найти по id
+    public void findById() {// Найти по id
         int idToFind = 1;
         FilmsPoster[] returned = new FilmsPoster[]{first};
         doReturn(returned).when(repository).findAll();
@@ -103,30 +88,5 @@ public class PosterManagerTest {
         verify(repository).findById(idToFind);
 
     }
-
-
-    @Test
-    public void clear(){
-        FilmsPoster[] films = new FilmsPoster[]{first};
-
-        manager.remove(first);
-        FilmsPoster[] actual = manager.getAll();
-        FilmsPoster[] expected = new FilmsPoster[]{};
-        assertArrayEquals(expected, actual);
-
-    }
-
-    @Test
-    public void clear1(){
-        FilmsPoster[] returned = new FilmsPoster[]{first, second, third, fourth, fifth, sixth, seventh, eighth, ninth, tenth};
-        doReturn(returned).when(repository).removeAll();
-
-        manager.getAll();
-        FilmsPoster[] actual = manager.getAll();
-        FilmsPoster[] expected = new FilmsPoster[]{};
-        assertArrayEquals(expected, actual);
-
-    }
-
 
 }

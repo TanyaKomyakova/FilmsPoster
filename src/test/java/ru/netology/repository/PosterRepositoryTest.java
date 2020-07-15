@@ -31,6 +31,17 @@ class PosterRepositoryTest {
         assertEquals(expected,actual);
     }
 
+
+    @Test
+    public void shouldFindByIdWhenNot(){// должен найти по идентификатору, когда не существует
+        repository.save(first);
+        repository.save(second);
+        repository.save(third);
+        FilmsPoster actual = repository.findById(11);
+        FilmsPoster expected = null;
+        assertEquals(expected,actual);
+    }
+
     @Test
     public void shouldClear() { //следует очистить
         repository.save(first);
@@ -41,4 +52,17 @@ class PosterRepositoryTest {
         FilmsPoster[] expected = new FilmsPoster[]{};
         assertArrayEquals(expected, actual);
     }
+
+    @Test
+    public void shouldDeleteById(){//удалить по идентификатору
+        repository.save(first);
+        repository.save(second);
+        repository.save(third);
+        repository.removeById(1);
+        FilmsPoster[] actual = repository.findAll();
+        FilmsPoster[] expected = new FilmsPoster[]{second,third};
+        assertArrayEquals(expected, actual);
+    }
+
+
 }
