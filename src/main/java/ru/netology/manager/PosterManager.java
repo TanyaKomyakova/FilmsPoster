@@ -1,44 +1,45 @@
 package ru.netology.manager;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import ru.netology.domain.FilmsPoster;
+import ru.netology.repository.PosterRepository;
 
+@NoArgsConstructor
+@Data
 public class PosterManager {
-    private FilmsPoster[] films = new FilmsPoster[0];
+    private PosterRepository repository;
 
-    public void add(FilmsPoster film){    // Метод добавления
-        int length = films.length + 1;
-        FilmsPoster[] movies = new FilmsPoster[length];
-
-        System.arraycopy(films, 0, movies, 0, films.length);
-
-        int lastIndex = movies.length - 1;
-        movies[lastIndex] = film;
-
-        films = movies;
+    public PosterManager(PosterRepository repository) {
+        this.repository = repository;
     }
 
-    public FilmsPoster[] getAll(){   // Получить все элементы в обратном порядке
+
+    public void add(FilmsPoster film) {    // Метод добавления
+        repository.save(film);
+    }
+
+    public FilmsPoster[] getAll() {   // Получить все фильмы в обратном порядке
+        FilmsPoster[] films = repository.findAll();
         FilmsPoster[] result = new FilmsPoster[films.length];
 
         for (int i = 0; i < result.length; i++) {
-            int index = films.length - 1 -i;
+            int index = films.length - 1 - i;
             result[i] = films[index];
         }
         return result;
     }
 
+
     public void removeById(int id){ // Удаление по id
-        int length = films.length - 1;
-        FilmsPoster[] videos = new FilmsPoster[length];
+        repository.removeById(id);
+    }
 
-        int index = 0;
-        for (FilmsPoster film : films) {
-            if (film.getId() != id){
-                videos[index] = film;
-                index++;
+    public FilmsPoster findById(int id){ // найти по идентификатору
+        return repository.findById(id);
+    }
 
-            }
-        }
-        films = videos;
+    public void remove(FilmsPoster film){// очищение
+        repository.removeAll();
     }
 }
