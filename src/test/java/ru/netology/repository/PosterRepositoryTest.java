@@ -27,7 +27,7 @@ class PosterRepositoryTest {
         repository.save(second);
         repository.save(third);
         FilmsPoster actual = repository.findById(1);
-        FilmsPoster expected = new FilmsPoster(1,"first","comedy",10);
+        FilmsPoster expected = first;
         assertEquals(expected,actual);
     }
 
@@ -38,8 +38,7 @@ class PosterRepositoryTest {
         repository.save(second);
         repository.save(third);
         FilmsPoster actual = repository.findById(11);
-        FilmsPoster expected = null;
-        assertEquals(expected,actual);
+        assertNull(actual);
     }
 
     @Test

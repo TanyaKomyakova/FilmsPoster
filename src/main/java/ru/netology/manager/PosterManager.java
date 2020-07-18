@@ -35,8 +35,8 @@ public class PosterManager {
         repository.removeById(id);
     }
 
-    public void findById(int id){ // найти по идентификатору
-        repository.findById(id);
+    public FilmsPoster findById(int id){ // найти по идентификатору
+        return repository.findById(id);
     }
 
     public void remove(FilmsPoster film){// очищение

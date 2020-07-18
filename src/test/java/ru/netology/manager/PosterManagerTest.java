@@ -77,14 +77,11 @@ public class PosterManagerTest {
     @Test
     public void findById() {// Найти по id
         int idToFind = 1;
-        FilmsPoster[] returned = new FilmsPoster[]{first};
-        doReturn(returned).when(repository).findAll();
-
-
-        manager.findById(idToFind);
-        FilmsPoster[] actual = manager.getAll();
-        FilmsPoster[] expected = new FilmsPoster[]{first};
-        assertArrayEquals(expected, actual);
+        FilmsPoster returned = first;
+        doReturn(returned).when(repository).findById(idToFind);
+        FilmsPoster actual = manager.findById(idToFind);
+        FilmsPoster expected = first;
+        assertEquals(expected, actual);
         verify(repository).findById(idToFind);
 
     }
